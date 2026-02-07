@@ -1,5 +1,5 @@
 ---
-name: quality-fixer
+name: gg-quality-fixer
 description: Fixes dead code, duplication, and code quality issues identified by quality-reviewer.
 tools:
   - Bash

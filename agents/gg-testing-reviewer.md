@@ -1,5 +1,5 @@
 ---
-name: testing-reviewer
+name: gg-testing-reviewer
 description: Reviews test code for coverage gaps, assertion quality, test logic errors, flakiness risks.
 tools:
   - Bash

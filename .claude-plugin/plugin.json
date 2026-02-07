@@ -1,13 +1,13 @@
 {
-  "name": "superpowers",
-  "description": "Core skills library for Claude Code: TDD, debugging, collaboration patterns, and proven techniques",
+  "name": "ggcoder",
+  "description": "Extended skills library for Claude Code: TDD, debugging, collaboration patterns, plus GridGain/Ignite specialized code review with 5 reviewers, 6 fixers, and domain-specific patterns",
   "version": "4.2.0",
   "author": {
-    "name": "Jesse Vincent",
+    "name": "GridGain",
     "email": "jesse@fsck.com"
   },
-  "homepage": "https://github.com/obra/superpowers",
-  "repository": "https://github.com/obra/superpowers",
+  "homepage": "https://github.com/tapnetix/ggcoder",
+  "repository": "https://github.com/tapnetix/ggcoder",
   "license": "MIT",
-  "keywords": ["skills", "tdd", "debugging", "collaboration", "best-practices", "workflows"]
+  "keywords": ["skills", "tdd", "debugging", "collaboration", "best-practices", "workflows", "code-review", "gridgain", "ignite", "concurrency", "distributed-systems"]
 }

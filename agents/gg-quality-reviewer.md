@@ -1,5 +1,5 @@
 ---
-name: quality-reviewer
+name: gg-quality-reviewer
 description: Reviews code for quality issues - dead code, duplication, logging, style. Use for Medium/Low severity issues.
 tools:
   - Bash

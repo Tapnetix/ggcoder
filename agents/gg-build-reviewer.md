@@ -1,5 +1,5 @@
 ---
-name: build-reviewer
+name: gg-build-reviewer
 description: Reviews build configuration, dependencies, and upstream coordination for GridGain/Ignite.
 tools:
   - Bash

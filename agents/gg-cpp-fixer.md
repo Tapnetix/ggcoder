@@ -1,5 +1,5 @@
 ---
-name: cpp-fixer
+name: gg-cpp-fixer
 description: Fixes C++ header issues, ownership semantics, and shell script problems.
 tools:
   - Bash

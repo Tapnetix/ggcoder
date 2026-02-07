@@ -1,5 +1,5 @@
 ---
-name: safety-fixer
+name: gg-safety-fixer
 description: Fixes concurrency, resource management, and null safety issues identified by safety-reviewer.
 tools:
   - Bash
@@ -20,8 +20,8 @@ You fix **safety-critical issues** in GridGain 9 / Apache Ignite 3.
 - `ggcoder:concurrency-patterns`
 - `ggcoder:resource-cleanup-patterns`
 - `ggcoder:null-check-patterns`
-- `superpowers:test-driven-development`
-- `superpowers:verification-before-completion`
+- `ggcoder:test-driven-development`
+- `ggcoder:verification-before-completion`
 
 ## Workflow
 

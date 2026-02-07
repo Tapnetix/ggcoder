@@ -1,5 +1,5 @@
 ---
-name: cpp-reviewer
+name: gg-cpp-reviewer
 description: Reviews C++, CMake, and shell script code for header issues, ownership semantics, script safety.
 tools:
   - Bash

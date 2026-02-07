@@ -1,5 +1,5 @@
 ---
-name: safety-reviewer
+name: gg-safety-reviewer
 description: Reviews code for critical safety issues - concurrency, resource management, null safety, type safety. Use for GridGain/Ignite PR reviews.
 tools:
   - Bash

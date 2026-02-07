@@ -1,5 +1,5 @@
 ---
-name: build-fixer
+name: gg-build-fixer
 description: Fixes build configuration, dependency versions, and adds module documentation.
 tools:
   - Bash

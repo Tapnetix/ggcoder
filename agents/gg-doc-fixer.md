@@ -1,5 +1,5 @@
 ---
-name: doc-fixer
+name: gg-doc-fixer
 description: Fixes documentation issues - typos, Javadoc errors, exception messages.
 tools:
   - Bash

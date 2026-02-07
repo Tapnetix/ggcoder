@@ -1,5 +1,5 @@
 ---
-name: test-fixer
+name: gg-test-fixer
 description: Fixes test coverage gaps, assertion quality, and test logic errors.
 tools:
   - Bash
