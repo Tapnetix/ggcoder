@@ -64,15 +64,28 @@ These thoughts mean STOP—you're rationalizing:
 | "This feels productive" | Undisciplined action wastes time. Skills prevent this. |
 | "I know what that means" | Knowing the concept ≠ using the skill. Invoke it. |
 
+## Mandatory Skill Triggers
+
+**You MUST invoke these skills for these triggers - NO EXCEPTIONS:**
+
+| Trigger Words | Skill to Invoke |
+|---------------|-----------------|
+| bug, error, crash, debug, fix, broken, fails, not working, investigate | `systematic-debugging` |
+| implement, create, add feature, build, write code | `test-driven-development` |
+| new feature, design, requirements, let's build | `brainstorming` |
+| review, code review, PR, pull request | `review-pr` |
+
+**Invoke the skill BEFORE exploring code, running commands, or taking any action.**
+
 ## Skill Priority
 
 When multiple skills could apply, use this order:
 
-1. **Process skills first** (brainstorming, debugging) - these determine HOW to approach the task
-2. **Implementation skills second** (frontend-design, mcp-builder) - these guide execution
+1. **Process skills first** (brainstorming, systematic-debugging) - these determine HOW to approach the task
+2. **Implementation skills second** (test-driven-development, pattern skills) - these guide execution
 
-"Let's build X" → brainstorming first, then implementation skills.
-"Fix this bug" → debugging first, then domain-specific skills.
+"Let's build X" → `brainstorming` first, then implementation skills.
+"Fix this bug" → `systematic-debugging` first, then domain-specific skills.
 
 ## Skill Types
 
