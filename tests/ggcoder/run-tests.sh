@@ -118,10 +118,12 @@ if [ "$RUN_BEHAVIORAL" = true ]; then
     echo -e "\n${YELLOW}=== Behavioral Tests ===${NC}"
 
     if ! command -v claude &> /dev/null; then
-        echo -e "${YELLOW}WARNING: Claude CLI not found - behavioral tests will have limited coverage${NC}"
+        echo -e "${YELLOW}WARNING: Claude CLI not found - behavioral tests will be skipped${NC}"
+    else
+        run_test "test-reviewer-behavior.sh"
+        run_test "test-skill-triggering.sh"
+        run_test "test-skill-utilization.sh"
     fi
-
-    run_test "test-reviewer-behavior.sh"
 else
     echo -e "\n${YELLOW}Behavioral tests skipped (use --behavioral to run)${NC}"
 fi

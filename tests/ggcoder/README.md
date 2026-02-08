@@ -42,20 +42,36 @@ These tests verify plugin configuration without invoking Claude:
 
 These tests invoke Claude CLI to verify agent behavior:
 
-| Test | Description |
-|------|-------------|
-| `test-reviewer-behavior.sh` | Reviewer agents detect issues in code samples |
+| Test | Description | Duration |
+|------|-------------|----------|
+| `test-reviewer-behavior.sh` | Reviewer agents detect issues in code samples | ~2-5 min |
+| `test-skill-triggering.sh` | Skills get triggered from natural prompts | ~5-10 min |
+| `test-skill-utilization.sh` | Skills are FOLLOWED, not just loaded | ~10-15 min |
 
 **What they check:**
+
+**Reviewer Behavior:**
 - Safety reviewer detects concurrency issues (HashMap thread safety)
 - Safety reviewer detects resource leaks (unclosed streams)
 - Safety reviewer detects null safety issues
 - Reviewers don't raise false positives on clean code
-- Layered review process is configured correctly
+
+**Skill Triggering:**
+- `brainstorming` triggers on feature requests
+- `test-driven-development` triggers on implementation requests
+- `systematic-debugging` triggers on bug reports
+- `concurrency-patterns` triggers on thread safety questions
+- `review-pr` triggers on PR review requests
+
+**Skill Utilization (the key tests):**
+- TDD skill causes **test-first behavior** (not just mentioning TDD)
+- Debugging skill causes **systematic process** (hypothesis, evidence, root cause)
+- Concurrency patterns provides **GridGain-specific guidance**
+- /review uses **layered process** (domain reviewers then architecture)
 
 **Requirements:**
 - Claude Code CLI installed (`claude --version`)
-- Each behavioral test takes 30-120 seconds
+- Full behavioral suite takes 20-30 minutes
 
 ## Test Methodology
 
@@ -69,16 +85,44 @@ Standard assertion-based testing:
 
 ### Behavioral Tests
 
-Based on the **writing-skills** TDD methodology for skills:
+Based on the **writing-skills** TDD methodology for skills.
 
-1. **Code Fixtures**: Known-bad code samples with specific issues
-2. **Prompt Injection**: Feed code to reviewer agent prompts
-3. **Output Validation**: Check if agent detected expected issues
-4. **False Positive Check**: Verify clean code doesn't trigger warnings
+#### Key Insight: Triggering ≠ Utilization
 
-The behavioral tests follow the RED-GREEN-REFACTOR cycle:
-- **RED**: Code with issues should produce findings
-- **GREEN**: Code without issues should not produce false positives
+Loading a skill is **necessary but not sufficient**. We must verify:
+
+1. **Skill Triggering**: The Skill tool is invoked for the right skill
+2. **Skill Utilization**: Agent behavior actually changes to match skill content
+
+Example: TDD skill should not just be loaded - it should cause the agent to:
+- Write tests **before** implementation code
+- Mention watching tests fail
+- Follow RED-GREEN-REFACTOR cycle
+
+The `test-skill-utilization.sh` tests look for **behavioral indicators** that prove the skill was followed, not just read.
+
+#### Test Types
+
+**1. Code Fixtures** (test-reviewer-behavior.sh)
+- Known-bad code samples with specific issues
+- Feed to reviewer agent prompts
+- Verify issues are detected
+- Verify clean code doesn't trigger false positives
+
+**2. Skill Triggering** (test-skill-triggering.sh)
+- Natural prompts that should trigger specific skills
+- Verify Skill tool is invoked with correct skill name
+- Check that skill wasn't loaded AFTER taking action
+
+**3. Skill Utilization** (test-skill-utilization.sh)
+- Pressure scenarios that tempt violation
+- Check for behavioral indicators (not just keywords)
+- Example: Did agent write test file BEFORE implementation?
+- Example: Did agent form hypothesis BEFORE proposing fix?
+
+The tests follow RED-GREEN-REFACTOR:
+- **RED**: Without skill, agent takes wrong approach
+- **GREEN**: With skill, agent follows correct process
 
 ## Test Fixtures
 
