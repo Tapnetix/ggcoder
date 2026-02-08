@@ -1,6 +1,6 @@
 ---
 name: async-patterns
-description: Use when reviewing or fixing async code - CompletableFuture, Channels, error propagation, backpressure in GridGain/Ignite code
+description: "Invoke when code uses async/reactive patterns in GridGain/Ignite. Triggers: CompletableFuture, CompletionStage, Publisher, Subscriber, Flow, Channel, async callback, thenApply, whenComplete, exceptionally, backpressure. Invoke BEFORE fixing async code."
 ---
 
 # Async Patterns for GridGain/Ignite

@@ -1,6 +1,6 @@
 ---
 name: review-pr
-description: Use when performing comprehensive PR review - orchestrates specialized reviewers
+description: "You MUST invoke this when asked to review code, review a PR, or run /review. Orchestrates layered review with specialized gg-* domain reviewers first (safety, quality, testing, cpp, build), then architecture review. Invoke BEFORE dispatching any review agents."
 ---
 
 # PR Review Orchestration

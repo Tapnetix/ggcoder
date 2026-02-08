@@ -1,6 +1,6 @@
 ---
 name: test-driven-development
-description: Use when implementing any feature or bugfix, before writing implementation code
+description: "You MUST use this before writing ANY implementation code. Invoke when asked to implement, create, add, build, or write code for features, functions, or fixes. Write tests FIRST - never write implementation before tests. If you find yourself about to write non-test code, STOP and invoke this skill."
 ---
 
 # Test-Driven Development (TDD)

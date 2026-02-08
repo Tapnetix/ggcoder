@@ -1,6 +1,6 @@
 ---
 name: null-check-patterns
-description: Use when reviewing or fixing null safety - parameter validation, @Nullable annotations, Objects.requireNonNull in GridGain/Ignite code
+description: "Invoke when code has null safety concerns in GridGain/Ignite. Triggers: NullPointerException, @Nullable, @NotNull, Objects.requireNonNull, null check, optional parameter, defensive null handling. Invoke BEFORE suggesting null safety fixes."
 ---
 
 # Null Check Patterns for GridGain/Ignite

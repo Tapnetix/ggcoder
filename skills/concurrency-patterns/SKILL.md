@@ -1,6 +1,6 @@
 ---
 name: concurrency-patterns
-description: Use when reviewing or fixing concurrency issues - thread safety, race conditions, volatile fields, synchronization in GridGain/Ignite code
+description: "You MUST invoke this when working with concurrent/multithreaded code, especially in GridGain/Ignite. Triggers: HashMap in shared context, race condition, thread-safe, synchronized, volatile, ConcurrentHashMap, deadlock, lock ordering, AtomicReference, executor, parallel streams. Invoke BEFORE suggesting thread-safety fixes."
 ---
 
 # Concurrency Patterns for GridGain/Ignite

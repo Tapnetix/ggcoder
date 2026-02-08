@@ -1,6 +1,6 @@
 ---
 name: test-patterns
-description: Use when reviewing or fixing test code - assertions, coverage, Hamcrest matchers, Awaitility in GridGain/Ignite tests
+description: "Invoke when working with tests in GridGain/Ignite. Triggers: @Test, assertThat, Awaitility, Hamcrest, flaky test, test coverage, test stability, mock, @BeforeEach, @AfterEach, waitForCondition. Invoke BEFORE fixing or writing tests."
 ---
 
 # Test Patterns for GridGain/Ignite

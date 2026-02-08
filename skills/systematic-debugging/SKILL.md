@@ -1,6 +1,6 @@
 ---
 name: systematic-debugging
-description: Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes
+description: "You MUST use this before investigating any bug, error, crash, test failure, or unexpected behavior. Invoke BEFORE exploring code, running commands, or proposing fixes. If someone says 'debug', 'fix', 'broken', 'not working', 'error', or 'fails' - invoke this skill first."
 ---
 
 # Systematic Debugging

@@ -1,6 +1,6 @@
 ---
 name: resource-cleanup-patterns
-description: Use when reviewing or fixing resource management - memory leaks, close() methods, try-finally, AutoCloseable in GridGain/Ignite code
+description: "Invoke when code handles resources needing cleanup in GridGain/Ignite. Triggers: InputStream, OutputStream, Connection, Socket, Channel, Cursor, try-finally, AutoCloseable, close(), resource leak, memory leak, unclosed stream. Invoke BEFORE suggesting resource fixes."
 ---
 
 # Resource Cleanup Patterns for GridGain/Ignite
