@@ -11,7 +11,22 @@ PLUGIN_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 warning_message=""
 legacy_skills_dir="${HOME}/.config/superpowers/skills"
 if [ -d "$legacy_skills_dir" ]; then
-    warning_message="\n\n<important-reminder>IN YOUR FIRST REPLY AFTER SEEING THIS MESSAGE YOU MUST TELL THE USER:⚠️ **WARNING:** Superpowers now uses Claude Code's skills system. Custom skills in ~/.config/superpowers/skills will not be read. Move custom skills to ~/.claude/skills instead. To make this message go away, remove ~/.config/superpowers/skills</important-reminder>"
+    warning_message="\n\n<important-reminder>IN YOUR FIRST REPLY AFTER SEEING THIS MESSAGE YOU MUST TELL THE USER:⚠️ **WARNING:** Legacy skills directory found. Custom skills in ~/.config/superpowers/skills will not be read. Move custom skills to ~/.claude/skills instead.</important-reminder>"
+fi
+
+# Check if original superpowers plugin is also installed (conflict detection)
+superpowers_conflict=""
+plugins_cache="${HOME}/.claude/plugins/cache"
+if [ -d "$plugins_cache" ]; then
+    # Look for superpowers plugin (but not ggcoder)
+    if find "$plugins_cache" -maxdepth 2 -type d -name "superpowers" 2>/dev/null | grep -v ggcoder | grep -q .; then
+        superpowers_conflict="\n\n<important-reminder>IN YOUR FIRST REPLY AFTER SEEING THIS MESSAGE YOU MUST TELL THE USER:⚠️ **CONFLICT DETECTED:** Both 'superpowers' and 'ggcoder' plugins are installed. GGCoder is a superset of Superpowers with GridGain-specific reviewers. Having both causes duplicate skills and confusion.\n\nPlease uninstall one:\n\`\`\`\n/plugin uninstall superpowers@superpowers-marketplace\n\`\`\`\n\nKeep only ggcoder for GridGain/Ignite development.</important-reminder>"
+    fi
+fi
+
+# Combine warnings
+if [ -n "$superpowers_conflict" ]; then
+    warning_message="${warning_message}${superpowers_conflict}"
 fi
 
 # Read using-superpowers content
