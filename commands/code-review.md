@@ -83,6 +83,10 @@ Focus on your specialty area. Report issues using this format:
 **Suggested Fix**: Code or explanation
 
 Only report issues with confidence >= 80% for Critical, >= 85% for High.
+If the code is clean in your domain, explicitly say "No issues found."
+
+IMPORTANT: End your response with a counts summary line:
+**Summary: N issues (X critical, Y high, Z medium, W low)**
 ```
 
 **Subagent types to use:**
@@ -101,7 +105,58 @@ After all reviewers return:
 3. **Deduplicate**: If two reviewers flag the same issue, keep the higher-confidence one
 4. **Present to user** in a single organized report
 
-### Step 6: Offer Fixes
+### Step 6: Write Review Report
+
+**Save the review report to `docs/reviews/` so it persists as a record.**
+
+Create file: `docs/reviews/YYYY-MM-DD-HHMMSS-code-review.md` (use current timestamp)
+
+Report format:
+
+```markdown
+# Code Review Report
+
+**Date**: YYYY-MM-DD HH:MM
+**Scope**: Uncommitted changes / Staged changes
+**Branch**: {current branch name}
+**Changed Files**: {count}
+
+## Changed Files
+
+- path/to/File1.java
+- path/to/File2.java
+
+## Reviewers Dispatched
+
+| Reviewer | Findings |
+|----------|----------|
+| gg-safety-reviewer | N issues |
+| gg-quality-reviewer | N issues |
+| ... | ... |
+
+## Findings
+
+### CRITICAL
+- **[Issue title]** — `File.java:line` (confidence%) — description
+
+### HIGH
+- ...
+
+### MEDIUM
+- ...
+
+### LOW
+- ...
+
+## Summary
+
+- **Total issues**: N (X critical, Y high, Z medium, W low)
+- **Action required**: Yes/No
+```
+
+Tell the user where the report was saved.
+
+### Step 7: Offer Fixes
 
 After presenting findings, offer to fix issues:
 

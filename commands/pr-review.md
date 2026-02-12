@@ -88,6 +88,9 @@ Focus on your specialty area. Report issues using this format:
 
 Only report issues with confidence >= 80% for Critical, >= 85% for High.
 If the code is clean in your domain, explicitly say "No issues found."
+
+IMPORTANT: End your response with a counts summary line:
+**Summary: N issues (X critical, Y high, Z medium, W low)**
 ```
 
 **Subagent types to use:**
@@ -133,10 +136,18 @@ Workflow:
 3. Write a failing test for the bug (if applicable)
 4. Apply fix using skill patterns
 5. Verify the test passes
-6. Report what you fixed
 
 Changed files in this PR:
 {LIST_OF_CHANGED_FILES}
+
+IMPORTANT: End your response with a structured summary:
+
+## Fixes Applied
+- **[Issue title]** — `File.java:line` — What was changed
+- ...
+
+## Issues Not Fixed
+- **[Issue title]** — Reason it was not fixed
 ```
 
 **Subagent types to use:**
@@ -180,9 +191,74 @@ Provide structured feedback with:
 
 Use subagent type: `ggcoder:code-reviewer`
 
-### Step 7: Final Report
+### Step 7: Write Review Report
 
-Present a summary:
+**Save the full review report to `docs/reviews/` so it persists as a record.**
+
+Create file: `docs/reviews/YYYY-MM-DD-HHMMSS-pr-review.md` (use current timestamp)
+
+Report format:
+
+```markdown
+# PR Review Report
+
+**Date**: YYYY-MM-DD HH:MM
+**Target**: {PR number / branch name / current branch}
+**Base**: {base branch}
+**Changed Files**: {count}
+
+## Changed Files
+
+- path/to/File1.java
+- path/to/File2.java
+
+## Reviewers Dispatched
+
+| Reviewer | Findings |
+|----------|----------|
+| gg-safety-reviewer | N issues |
+| gg-quality-reviewer | N issues |
+| ... | ... |
+
+## Findings
+
+### CRITICAL
+- **[Issue title]** — `File.java:line` (confidence%) — description — **Status**: Fixed by gg-safety-fixer / Open
+
+### HIGH
+- ...
+
+### MEDIUM
+- ...
+
+### LOW
+- ...
+
+## Fixes Applied
+
+| Fixer | Issues Fixed | Details |
+|-------|-------------|---------|
+| gg-safety-fixer | N | Replaced HashMap with ConcurrentHashMap, added null check |
+| gg-test-fixer | N | Added concurrent test case |
+| ... | ... | ... |
+
+## Architecture Assessment
+
+{Summary from code-reviewer}
+
+## Summary
+
+- **Total issues found**: N (X critical, Y high, Z medium, W low)
+- **Issues fixed**: M
+- **Issues remaining**: N - M
+- **Verdict**: Ready to merge / Needs attention / Not ready
+```
+
+Tell the user where the report was saved.
+
+### Step 8: Present Summary
+
+Present a concise summary to the user:
 
 ```markdown
 ## PR Review Complete
@@ -201,6 +277,8 @@ Present a summary:
 
 ### Verdict
 [Ready to merge / Needs attention / Not ready]
+
+Full report saved to: docs/reviews/YYYY-MM-DD-HHMMSS-pr-review.md
 ```
 
 ## Example
