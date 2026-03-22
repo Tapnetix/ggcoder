@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
-# Tests for session-start.sh hook output in various scenarios
+# Tests for session-start hook output in various scenarios
 # Tests JSON escaping, warning generation, and context injection
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PLUGIN_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-HOOK_SCRIPT="$PLUGIN_ROOT/hooks/session-start.sh"
+HOOK_SCRIPT="$PLUGIN_ROOT/hooks/session-start"
+
+# Ensure CLAUDE_PLUGIN_ROOT is set so the hook emits hookSpecificOutput format
+export CLAUDE_PLUGIN_ROOT="$PLUGIN_ROOT"
 
 # Colors
 RED='\033[0;31m'

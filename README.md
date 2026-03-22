@@ -53,6 +53,8 @@ GGCoder is built on top of [Superpowers](https://github.com/obra/superpowers) by
 
 ## Installation
 
+**Note:** Installation differs by platform. Claude Code or Cursor have built-in plugin marketplaces. Codex and OpenCode require manual setup.
+
 ### Claude Code (via Plugin Marketplace)
 
 In Claude Code, register the marketplace first:
@@ -67,9 +69,15 @@ Then install the plugin:
 /plugin install ggcoder@ggcoder-marketplace
 ```
 
-### Verify Installation
+### Cursor (via Plugin Marketplace)
 
-Start a new session and ask Claude to help with something that would trigger a skill (e.g., "help me plan this feature" or "let's debug this issue"). Claude should automatically invoke the relevant ggcoder skill.
+In Cursor Agent chat, install from marketplace:
+
+```text
+/add-plugin ggcoder
+```
+
+or search for "ggcoder" in the plugin marketplace.
 
 ### Codex
 
@@ -90,6 +98,22 @@ Fetch and follow instructions from https://raw.githubusercontent.com/tapnetix/gg
 ```
 
 **Detailed docs:** [docs/README.opencode.md](docs/README.opencode.md)
+
+### Gemini CLI
+
+```bash
+gemini extensions install https://github.com/obra/superpowers
+```
+
+To update:
+
+```bash
+gemini extensions update superpowers
+```
+
+### Verify Installation
+
+Start a new session in your chosen platform and ask for something that should trigger a skill (for example, "help me plan this feature" or "let's debug this issue"). The agent should automatically invoke the relevant ggcoder skill.
 
 ## The Basic Workflow
 
@@ -168,7 +192,12 @@ Fetch and follow instructions from https://raw.githubusercontent.com/tapnetix/gg
 
 ### Commands
 
+- `/brainstorm` - Start a brainstorming session
+- `/write-plan` - Write an implementation plan
+- `/execute-plan` - Execute a plan step by step
 - `/review` - Run layered code review (GridGain + architecture)
+- `/code-review` - Review uncommitted changes with all reviewers
+- `/pr-review` - Review a PR with all reviewers
 - `/fix <category>` - Apply fixes (safety, quality, tests, docs, cpp, build)
 
 ## Philosophy
@@ -203,7 +232,14 @@ Skills update automatically when you update the plugin:
 
 MIT License - see LICENSE file for details
 
+## Community
+
+Superpowers is built by [Jesse Vincent](https://blog.fsck.com) and the rest of the folks at [Prime Radiant](https://primeradiant.com).
+
+For community support, questions, and sharing what you're building with Superpowers, join us on [Discord](https://discord.gg/Jd8Vphy9jq).
+
 ## Support
 
+- **Discord**: [Join us on Discord](https://discord.gg/Jd8Vphy9jq)
 - **Issues**: https://github.com/tapnetix/ggcoder/issues
 - **Original Superpowers**: https://github.com/obra/superpowers

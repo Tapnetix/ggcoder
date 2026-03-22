@@ -4,14 +4,14 @@
 set -euo pipefail
 
 # Determine plugin root directory
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PLUGIN_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
 # Check if legacy skills directory exists and build warning
 warning_message=""
 legacy_skills_dir="${HOME}/.config/superpowers/skills"
 if [ -d "$legacy_skills_dir" ]; then
-    warning_message="\n\n<important-reminder>IN YOUR FIRST REPLY AFTER SEEING THIS MESSAGE YOU MUST TELL THE USER:⚠️ **WARNING:** Legacy skills directory found. Custom skills in ~/.config/superpowers/skills will not be read. Move custom skills to ~/.claude/skills instead.</important-reminder>"
+    warning_message="\n\n<important-reminder>IN YOUR FIRST REPLY AFTER SEEING THIS MESSAGE YOU MUST TELL THE USER:⚠️ **WARNING:** Legacy skills directory found. Custom skills in ~/.config/superpowers/skills will not be read. Move custom skills to ~/.claude/skills instead. To make this message go away, remove ~/.config/superpowers/skills</important-reminder>"
 fi
 
 # Check if original superpowers plugin is also installed (conflict detection)
@@ -47,15 +47,26 @@ escape_for_json() {
 
 using_ggcoder_escaped=$(escape_for_json "$using_ggcoder_content")
 warning_escaped=$(escape_for_json "$warning_message")
+session_context="<EXTREMELY_IMPORTANT>\nYou have ggcoder powers.\n\n**Below is the full content of your 'ggcoder:using-ggcoder' skill - your introduction to using skills. For all other skills, use the 'Skill' tool:**\n\n${using_ggcoder_escaped}\n\n${warning_escaped}\n</EXTREMELY_IMPORTANT>"
 
-# Output context injection as JSON
-cat <<EOF
-{
-  "hookSpecificOutput": {
-    "hookEventName": "SessionStart",
-    "additionalContext": "<EXTREMELY_IMPORTANT>\nYou have ggcoder powers.\n\n**Below is the full content of your 'ggcoder:using-ggcoder' skill - your introduction to using skills. For all other skills, use the 'Skill' tool:**\n\n${using_ggcoder_escaped}\n\n${warning_escaped}\n</EXTREMELY_IMPORTANT>"
-  }
-}
-EOF
+# Output context injection as JSON.
+# Cursor hooks expect additional_context.
+# Claude Code hooks expect hookSpecificOutput.additionalContext.
+# Claude Code reads BOTH fields without deduplication, so we must only
+# emit the field consumed by the current platform to avoid double injection.
+#
+# Uses printf instead of heredoc (cat <<EOF) to work around a bash 5.3+
+# bug where heredoc variable expansion hangs when content exceeds ~512 bytes.
+# See: https://github.com/obra/superpowers/issues/571
+if [ -n "${CURSOR_PLUGIN_ROOT:-}" ]; then
+  # Cursor sets CURSOR_PLUGIN_ROOT (may also set CLAUDE_PLUGIN_ROOT) — emit additional_context
+  printf '{\n  "additional_context": "%s"\n}\n' "$session_context"
+elif [ -n "${CLAUDE_PLUGIN_ROOT:-}" ]; then
+  # Claude Code sets CLAUDE_PLUGIN_ROOT — emit only hookSpecificOutput
+  printf '{\n  "hookSpecificOutput": {\n    "hookEventName": "SessionStart",\n    "additionalContext": "%s"\n  }\n}\n' "$session_context"
+else
+  # Other platforms — emit additional_context as fallback
+  printf '{\n  "additional_context": "%s"\n}\n' "$session_context"
+fi
 
 exit 0

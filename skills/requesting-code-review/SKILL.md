@@ -5,7 +5,7 @@ description: Use when completing tasks, implementing major features, or before m
 
 # Requesting Code Review
 
-Use layered review to catch domain-specific and architectural issues.
+Use layered review to catch domain-specific and architectural issues. Each reviewer gets precisely crafted context for evaluation — never your session's history. This keeps reviewers focused on the work product, not your thought process, and preserves your own context for continued work.
 
 **Core principle:** Review early, review often, with specialized reviewers.
 
@@ -94,7 +94,7 @@ You: [Fix volatile, extract constant, add async test]
 # Pass 2: Architecture Review
 [Dispatch ggcoder:code-reviewer subagent]
   WHAT_WAS_IMPLEMENTED: Cache invalidation with TTL support
-  PLAN_OR_REQUIREMENTS: Task 2 from docs/plans/cache-plan.md
+  PLAN_OR_REQUIREMENTS: Task 2 from docs/superpowers/plans/cache-plan.md
   BASE_SHA: a7981ec
   HEAD_SHA: 3df7661
 

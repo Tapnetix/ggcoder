@@ -65,10 +65,10 @@ else
 fi
 
 # 1.4 Session hook references using-ggcoder
-if grep -q "using-ggcoder" "$PLUGIN_ROOT/hooks/session-start.sh" 2>/dev/null; then
-    pass "session-start.sh references using-ggcoder"
+if grep -q "using-ggcoder" "$PLUGIN_ROOT/hooks/session-start" 2>/dev/null; then
+    pass "session-start hook references using-ggcoder"
 else
-    fail "session-start.sh missing using-ggcoder reference" "Hook should inject using-ggcoder skill"
+    fail "session-start hook missing using-ggcoder reference" "Hook should inject using-ggcoder skill"
 fi
 
 # 1.5 Config paths use ggcoder (not superpowers) in relevant skills
@@ -89,19 +89,21 @@ echo ""
 # ============================================
 info "2. Hook Script Tests"
 
-# 2.1 session-start.sh is executable
-if [ -x "$PLUGIN_ROOT/hooks/session-start.sh" ]; then
-    pass "session-start.sh is executable"
+# 2.1 session-start hook is executable
+if [ -x "$PLUGIN_ROOT/hooks/session-start" ]; then
+    pass "session-start hook is executable"
 else
-    fail "session-start.sh is not executable" "chmod +x needed"
+    fail "session-start hook is not executable" "chmod +x needed"
 fi
 
 # 2.2 Hook outputs valid JSON
-hook_output=$("$PLUGIN_ROOT/hooks/session-start.sh" 2>&1)
+# Set CLAUDE_PLUGIN_ROOT so hook emits hookSpecificOutput format
+export CLAUDE_PLUGIN_ROOT="$PLUGIN_ROOT"
+hook_output=$("$PLUGIN_ROOT/hooks/session-start" 2>&1)
 if echo "$hook_output" | jq . >/dev/null 2>&1; then
-    pass "session-start.sh outputs valid JSON"
+    pass "session-start hook outputs valid JSON"
 else
-    fail "session-start.sh outputs invalid JSON" "Output: ${hook_output:0:100}..."
+    fail "session-start hook outputs invalid JSON" "Output: ${hook_output:0:100}..."
 fi
 
 # 2.3 Hook JSON has required structure
@@ -271,14 +273,14 @@ echo ""
 info "7. Conflict Detection Tests"
 
 # 7.1 Hook has superpowers conflict detection
-if grep -q "superpowers.*conflict\|CONFLICT.*superpowers" "$PLUGIN_ROOT/hooks/session-start.sh" 2>/dev/null; then
+if grep -q "superpowers.*conflict\|CONFLICT.*superpowers" "$PLUGIN_ROOT/hooks/session-start" 2>/dev/null; then
     pass "Hook has superpowers conflict detection"
 else
     fail "Hook missing conflict detection" "Should detect if superpowers plugin is also installed"
 fi
 
 # 7.2 Hook has legacy directory detection
-if grep -q "legacy_skills_dir\|\.config/superpowers/skills" "$PLUGIN_ROOT/hooks/session-start.sh" 2>/dev/null; then
+if grep -q "legacy_skills_dir\|\.config/superpowers/skills" "$PLUGIN_ROOT/hooks/session-start" 2>/dev/null; then
     pass "Hook has legacy directory detection"
 else
     fail "Hook missing legacy detection" "Should detect ~/.config/superpowers/skills"
